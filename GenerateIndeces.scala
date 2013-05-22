@@ -3,12 +3,13 @@
 import java.io._
 import scala.xml._
 
-object GenerateIndeces extends App {
+//object GenerateIndeces extends App {
   val root = new File("maven-repo")
   recurse(root)
 
   def recurse(file: File): Unit = {
     if (file.isDirectory) {
+
       write(file, generateIndex(file))
     }
     file.listFiles().filter(_.isDirectory()).foreach { f =>
@@ -39,8 +40,9 @@ object GenerateIndeces extends App {
 
   def write(dir: File, n: Node) {
     val out = new FileWriter(new File(dir, "index.html"))
+    println(s"write: $dir/index.hmtl")
     out.write("""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">""")
     out.write(new PrettyPrinter(120,2).format(n))
     out.close
   }
-}
+//}
