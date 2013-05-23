@@ -19,7 +19,7 @@ import scala.xml._
 
   def generateIndex(dir: File) = {
     val dirs = dir.listFiles.filter(_.isDirectory).map(_.getName + "/").toList.sorted
-    val files = dir.listFiles.filter(f => f.isFile && f.getName != "index.html").map(_.getName).toList.sorted
+    val files = dir.listFiles.filter(f => f.isFile && f.getName != "index.html" && f.getName != ".DS_Store").map(_.getName).toList.sorted
     <html lang="en">
     <head><link type="text/css" href={rootLink(dir) + "/maven-repo.css"} rel="stylesheet" /></head>
     <body>
@@ -32,7 +32,7 @@ import scala.xml._
     </html>
   }
 
-  def path(dir: File): String = if (dir == root) "scct/maven-repo" else path(dir.getParentFile) + "/" + dir.getName
+  def path(dir: File): String = if (dir == root) "/maven-repo" else path(dir.getParentFile) + "/" + dir.getName
 
   def rootLink(dir: File): String = {
     if (dir == root) ".." else rootLink(dir.getParentFile) + "/.."
